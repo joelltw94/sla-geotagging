@@ -1,0 +1,621 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.app-container {
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.app-container h1 {
+  text-align: center;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.search-container input {
+  padding: 12px 20px;
+  font-size: 18px;
+  border: 1px solid #dcdcdc;
+  border-radius: 24px;
+  width: 100%; /* Match the width of the container */
+  max-width: 600px; /* Set a consistent max width */
+  margin: 0 auto; /* Center the input */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.search-container input:focus {
+  outline: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.search-container button {
+  padding: 12px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 24px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+.popup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.search-container button:disabled {
+  background-color: #aaa;
+}
+
+.search-container button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.map-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.static-map, .view-map {
+  flex: 1;
+  border-radius: 8px;
+}
+
+.static-map img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.map-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #ff00ff;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.address-info {
+  text-align: center; /* Center the text */
+  margin-top: 20px;
+}
+
+.address-info p {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.results-container {
+  margin-top: 20px;
+}
+
+.schools-header {
+  margin-bottom: 10px;
+}
+
+.sorting-control {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.sorting-control select {
+  padding: 5px;
+}
+
+.schools-list {
+  margin-top: 20px;
+}
+
+.school-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.school-header {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.school-details {
+  font-size: 14px;
+  color: #555;
+}
+
+.school-details em {
+  color: #000000; /*  color for the distance text */
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pagination-button {
+  padding: 10px 15px;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #007bff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination-button.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.pagination-button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+.pagination-number {
+  padding: 10px 15px;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #007bff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination-number.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.pagination-number:hover {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+.view-map-button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.view-map-button:hover {
+  background-color: #0056b3;
+}
+
+.maps-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.maps-container iframe {
+  width: 48%;
+  height: 400px; /* Adjust height as needed */
+  border: none;
+  border-radius: 8px;
+}
+
+.leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim{
+  background-color: none
+}
+
+/* styles.css */
+.button-class {
+color: white;
+background: #295fdc;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+justify-content: center;
+align-items: center;
+display: flex;
+}
+
+.suggestion-item:hover {
+background-color: #f0f0f0;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.suggestion-item:hover small,
+.suggestion-item:hover div {
+color: #333;
+}
+/* Default styles for the sidebar */
+.sidebar {
+  display: none;
+}
+
+/* Open sidebar */
+.sidebar.open {
+  transform: translateX(300px); /* Slide in */
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .sidebar {
+    width: auto; /* Full width of the screen */
+    left: -100%; /* Off-screen by default */
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+
+  }
+
+  .sidebar.open {
+    transform: translateX(100%); /* Slide in when open */
+  }
+
+  /* Close button */
+  .sidebar .close-btn {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #333;
+    cursor: pointer;
+  }
+
+  .sidebar .close-btn:hover {
+    color: #00008B;
+  }
+}
+
+/* Open and close buttons */
+.mobile-open-button,
+.mobile-close-button {
+  background-color: #295fdc; /* Blue background */
+  color: white;
+  padding: 10px; /* Increased padding */
+  border-radius: 28%; /* Circular buttons */
+  border-style: none;
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  z-index: 1001; /* Ensure it's above other content */
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the buttons */
+.mobile-open-button:hover,
+.mobile-close-button:hover {
+  background-color: #00008B; /* Darker blue on hover */
+}
+
+/* Position mobile open button */
+.mobile-open-button {
+  top: 20px;
+  left: 20px;
+}
+
+/* Position mobile close button */
+.mobile-close-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+/* Adjust geocode overlay for proper scaling */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 2px 0px 18px #cdddfe;
+}
+
+.overlay-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-height: 80vh;
+  max-width: 90vw; /* Scale properly on smaller screens */
+  overflow-y: auto;
+  box-shadow: 2px 0px 18px #cdddfe;
+  width: 30%;
+}
+
+/* Mobile-specific styles for the overlay */
+@media (max-width: 768px) {
+  .overlay-content {
+    width: 90%; /* Use most of the screen width on mobile */
+    padding: 15px; /* Reduce padding for smaller screens */
+    border-radius: 8px; /* Slightly smaller border radius */
+  }
+
+  .overlay-content h3 {
+    font-size: 18px; /* Adjust font size for mobile */
+  }
+
+  .overlay-content p {
+    font-size: 14px; /* Adjust font size for mobile */
+  }
+
+  .overlay-content button {
+    font-size: 14px; /* Adjust button font size */
+    padding: 8px; /* Reduce button padding */
+  }
+}
+
+/* Adjust search bar dropdown */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%; /* Match the width of the search bar */
+  max-width: 600px; /* Set a consistent max width */
+  margin: 0 auto; /* Center the results */
+  max-height: 200px; /* Limit height */
+  overflow-y: auto; /* Enable scrolling */
+}
+
+/* Mobile-specific styles for search bar and results */
+@media (max-width: 768px) {
+  .search-container input {
+    max-width: 95%; /* Use most of the screen width on mobile */
+  }
+
+  ul {
+    max-width: 95%; /* Use most of the screen width on mobile */
+  }
+}
+
+/* Prevent zooming globally except for the map */
+html, body {
+  touch-action: manipulation; /* Prevent pinch-to-zoom globally */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  overscroll-behavior: none; /* Prevent viewport zooming on rapid pinch */
+}
+
+input, select, textarea, button, .popup-container, .new-overlay {
+  touch-action: manipulation; /* Prevent zoom on interactive elements */
+  font-size: 16px; /* Ensure font size is large enough to prevent zoom on focus */
+}
+
+/* Allow pinch-to-zoom specifically for the map */
+#map {
+  touch-action: pinch-zoom; /* Allow pinch-to-zoom on the map */
+  overscroll-behavior: contain; /* Contain overscroll behavior to the map */
+}
+
+/* Disable browser zoom */
+html {
+  touch-action: manipulation; /* Prevent pinch-to-zoom */
+}
+
+input, select, textarea {
+  touch-action: manipulation; /* Prevent zoom on form elements */
+}
+
+/* New geocode overlay styles */
+.new-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8); /* Darker background for better contrast */
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px; /* Add padding for better spacing */
+  box-sizing: border-box; /* Ensure padding is included in dimensions */
+}
+
+.new-overlay-content {
+  background-color: #ffffff;
+  width: 90%; /* Use most of the screen width */
+  max-width: 500px; /* Limit maximum width */
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+  max-height: 80vh; /* Limit height for scrolling */
+  box-sizing: border-box; /* Ensure padding is included in dimensions */
+  font-family: Arial, sans-serif; /* Use a clean, universal font */
+}
+
+.new-overlay-header {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+  color: #333; /* Darker text for better readability */
+}
+
+.new-overlay-description {
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #555; /* Subtle text color */
+}
+
+.new-overlay-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.new-overlay-list-item {
+  margin-bottom: 15px; /* Adjust spacing between items */
+  border-bottom: none; /* Remove lines between items */
+}
+
+.new-overlay-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f9f9f9;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  border: none; /* Remove border around buttons */
+}
+
+.new-overlay-button:hover {
+  background-color: #e0e0e0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.new-overlay-button div {
+  margin-bottom: 5px;
+}
+
+.new-overlay-button div:first-child {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+}
+
+.new-overlay-button div:last-child {
+  font-size: 14px;
+  color: #777;
+}
+
+.new-overlay-close-btn {
+  display: block;
+  margin: 20px auto 0;
+  padding: 12px 20px;
+  background-color: #295fdc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.new-overlay-close-btn:hover {
+  background-color: #164ecf;
+}
+
+/* Mobile-specific styles for the new overlay */
+@media (max-width: 768px) {
+  .new-overlay-content {
+    width: 95%; /* Use more screen width on mobile */
+    padding: 15px; /* Reduce padding for smaller screens */
+    max-height: 90vh; /* Increase height usage on smaller screens */
+  }
+
+  .new-overlay-header {
+    font-size: 20px; /* Adjust font size for mobile */
+  }
+
+  .new-overlay-description {
+    font-size: 14px; /* Adjust font size for mobile */
+  }
+
+  .new-overlay-button {
+    font-size: 14px; /* Adjust button font size */
+    padding: 10px; /* Adjust button padding */
+  }
+
+  .new-overlay-close-btn {
+    font-size: 14px; /* Adjust close button font size */
+    padding: 10px 15px; /* Adjust padding */
+  }
+
+  .search-container input {
+    max-width: 95%; /* Use most of the screen width on mobile */
+  }
+
+  ul {
+    max-width: 95%; /* Use most of the screen width on mobile */
+  }
+}
+
+/* Ensure the search bar matches the size of its container */
+.search-container input {
+  width: 100%; /* Match the width of the container */
+  max-width: 100%; /* Ensure it doesn't exceed the container's width */
+  margin: 0; /* Remove any external margins */
+  padding: 12px 20px; /* Keep consistent padding */
+  box-sizing: border-box; /* Include padding in the element's total width */
+}
+
+/* Center the search bar and results properly */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+ul {
+  width: 100%; /* Match the width of the container */
+  max-width: 100%; /* Ensure it doesn't exceed the container's width */
+  margin: 0 auto; /* Center the results */
+  padding: 0;
+  box-sizing: border-box; /* Include padding in the element's total width */
+}
+
+/* Mobile-specific styles for centering */
+@media (max-width: 768px) {
+  .search-container {
+    padding: 0 10px; /* Add padding to prevent it from touching the edges */
+  }
+
+  .search-container input {
+    max-width: 100%; /* Ensure it uses the full width of the container */
+  }
+
+  ul {
+    max-width: 100%; /* Ensure it uses the full width of the container */
+  }
+}
