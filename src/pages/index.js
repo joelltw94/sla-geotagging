@@ -1,36 +1,21 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import 'leaflet/dist/leaflet.css'
 import axios from 'axios'
 import { get } from 'http';
 
 const Home = () => {
- const [latitude, setLatitude] = useState('')
- const [longitude, setLongitude] = useState('')
  const [notification, setNotification] = useState('')
-  
-
+ const tabRef = useRef(null); // Ref to track the opened tab
+  const [latitude, setLatitude] = useState(null)
+  const [longitude, setLongitude] = useState(null)
   // Declare form IDs
-  const formId = '68230208ee7d3f1058d82464'
+  const formId = '682be1800177e7718be6a872'
   const latId = '68240b6ab74eb850778cced6'
   const lngId = '68240b80810acfbebc50f572'
 
-  const showNotification = (message) => {
-    setNotification(message)
-    setTimeout(() => setNotification(''), 3000) // Clear notification after 3 seconds
-  }
 
-  const showLoadingNotification = () => {
-    setIsLoading(true)
-  }
 
-  const hideLoadingNotification = () => {
-    setIsLoading(false)
-  }
 
-  const getformsg = () => {
-    const link = `https://form.gov.sg/${formId}?${latId}=${latitude}&${lngId}=${longitude}`
-    window.open(link, "_blank")
-  } 
 
   const getUserLocation = () => {
     if (navigator.geolocation) {
@@ -41,8 +26,23 @@ const Home = () => {
           console.log(lat, lng, 'latlng');
           setLatitude(lat);
           setLongitude(lng);
+
+          // Show redirecting message and delay before opening the link
           if (lat && lng) {
-            getformsg();
+            setNotification('Loading...');
+            setTimeout(() => {
+              const link = `https://form.gov.sg/${formId}?${latId}=${lat}&${lngId}=${lng}`;
+              if (!tabRef.current || tabRef.current.closed) {
+                tabRef.current = window.open(link, '_blank');
+                if (!tabRef.current) {
+                  // Fallback for Safari or blocked pop-ups
+                  window.location.href = link;
+                }
+              } else {
+                tabRef.current.location.href = link;
+              }
+              setNotification(''); // Clear notification after redirection
+            }, 650); // delay as failsafe
           }
         },
         (error) => {
@@ -69,7 +69,7 @@ const Home = () => {
     return () => {
 
     }
-  }, [latitude, longitude])
+  }, []) // Removed latitude and longitude from dependencies
 
   return (
     <div>
@@ -78,15 +78,17 @@ const Home = () => {
         <div
           style={{
             position: 'fixed',
-            bottom: '20px',
+            top: '90%',
             left: '50%',
-            transform: 'translateX(-50%)',
-            backgroundColor: '#ff4d4f',
-            color: 'white',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: notification === 'Loading...' ? 'transparent' : '#ff4d4f',
+            color: notification === 'Loading...' ? 'black' : 'white',
+            fontSize: notification === 'Loading...' ? '2rem' : '1rem',
             padding: '10px 20px',
             borderRadius: '5px',
             boxShadow: '0 2px 10px rgba(0, 0, 0, 0.2)',
             zIndex: '1000',
+            textAlign: 'center',
           }}
         >
           {notification}
